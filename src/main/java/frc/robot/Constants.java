@@ -33,7 +33,7 @@ public final class Constants {
         public static final int encoderLeftB = 2;
         public static final int encoderRightA = 5;
         public static final int encoderRightB = 6;
-        public static final double speedScale = 0.85; //0.8
+        public static final double speedScale = 0.65; //0.8 //(0.65 CLUB FAIR)
 
 
         public static final double EncoderDistancePerPulse = 1.0 / 2048.0;
@@ -41,7 +41,7 @@ public final class Constants {
 
         public static final double minDrivePowerTurn = 0.36; //0.35, 40
 
-        public static final double maxDriveSpeed = 0.9; //0.8
+        public static final double maxDriveSpeed = 0.7; //0.9  //(0.7 CLUB FAIR)
 
     }
 
