@@ -4,10 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -111,12 +108,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
         drive.tankDrive(leftPower, rightPower);
     }
 
+    public void tankTurn(double leftSpeed, double rightSpeed, long timeToTurn) {
+        int leftSign = leftSpeed >= 0 ? 1 : -1;
+        int rightSign = rightSpeed >= 0 ? 1 : -1;
+
+        double leftPower = ((speedScale - minDrivePowerTurn) * Math.abs(leftSpeed) + minDrivePowerTurn) * leftSign;
+        double rightPower = ((speedScale - minDrivePowerTurn) * Math.abs(rightSpeed) + minDrivePowerTurn) * rightSign;
+
+        drive.tankDrive(leftPower, rightPower);
+        Timer.delay(timeToTurn/1000);
+        drive.stopMotor();
+    }
+
     public void arcadeDrive(double xSpeed, double zRotation) {
         //drive.arcadeDrive(xSpeed*maxDriverSpeed, -zRotation*maxDriverSpeed);
 
         //account for changes in turning when the forward direction changes, if it doesn't work use the one above
         drive.arcadeDrive(xSpeed * maxDriverSpeed, maxDriverSpeed < 0 ? zRotation * maxDriverSpeed : -zRotation * maxDriverSpeed);
     }
+
 
     public double getLeftEncoderDistance() {
         return leftEncoder.getDistance();

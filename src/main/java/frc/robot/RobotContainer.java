@@ -24,13 +24,13 @@ import frc.robot.commands.climber.RunLeftTelescope;
 import frc.robot.commands.climber.RunLeftWinch;
 import frc.robot.commands.climber.RunRightTelescope;
 import frc.robot.commands.climber.RunRightWinch;
-import frc.robot.commands.color_wheel.RunColorWheel;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.intake.ChangeIntakeMode;
 import frc.robot.commands.intake.IntakeBackward;
 import frc.robot.commands.miscellaneous.Abort;
 import frc.robot.commands.miscellaneous.LEDCommand;
 import frc.robot.commands.outtake.DumperCommand;
+import frc.robot.commands.outtake.InvertShooter;
 import frc.robot.commands.outtake.ShootLowGoal;
 import frc.robot.commands.vision.TurnToBall;
 import frc.robot.lib.RobotType;
@@ -95,6 +95,8 @@ public class RobotContainer {
         chooser.addOption("2: ShootPreloadsTurn", new AutoRoutine2(drivetrain, shooterSubsystem, intakeSubsystem));
         chooser.addOption("3: GrabTwoStraightShoot", new AutoRoutine3(drivetrain, shooterSubsystem, intakeSubsystem));
         chooser.addOption("4: GrabTwoTrenchShoot", new AutoRoutine4(drivetrain, shooterSubsystem, intakeSubsystem));
+        chooser.addOption("5: DriveForwardTrench", new AutoRoutine5(drivetrain, intakeSubsystem));
+        chooser.addOption("6: DriveForwardTrenchShootLowGoal", new AutoRoutine6(drivetrain, intakeSubsystem, shooterSubsystem, limeLightSubsystem));
 
 
         //  CommandScheduler.getInstance().registerSubsystem(colorWheelSubsystem, shooterSubsystem);
@@ -163,7 +165,7 @@ public class RobotContainer {
         fightStickA.whenPressed(new ChangeIntakeMode(intakeSubsystem, shooterSubsystem));
         fightStickB.whenPressed(new DumperCommand(shooterSubsystem));
         fightStickX.whenPressed(new ShootLowGoal(shooterSubsystem));
-        fightStickY.whenHeld(new RunColorWheel(colorWheelSubsystem));
+        fightStickY.whenHeld(new InvertShooter(shooterSubsystem));
 //    fightStickLB.whenHeld(new RunLeftTelescope(leftClimberSubsystem));
 //    fightStickRB.whenHeld(new RunRightTelescope(rightClimberSubsystem));
         fightStickLB.whenHeld(new RunLeftTelescope(leftTelescopeSubsystem));
